@@ -32,7 +32,7 @@ namespace LadiesGentlmen.Models
         [Required(ErrorMessage = "You must enter a phone number")]
         [Range(0500000000, 0599999999, ErrorMessage = "Hey, you must enter a 10 digit number!")]
         [RegularExpression(@"^05[2, 3, 4, 8]{1} [-]{0,1}[\s\./0-9]{7}$")]
-        public int PhoneNumber { get; set; }
+        public String PhoneNumber { get; set; }
 
         [Display(Name = "Email address")]
         [Required(ErrorMessage = "The email address is required")]

@@ -11,9 +11,9 @@ namespace LadiesGentlmen.Models
         
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "You must enter an image link")]
+       [Required(ErrorMessage = "You must enter an image link")]
         [StringLength(300, ErrorMessage = "Hey, you can't enter more than 300 letters!")]
-        [RegularExpression(@"(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)")]
+        //[RegularExpression(@"(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)")]
         public string Image { get; set; }
         public SubCategory SubCategory { get; set; }
 

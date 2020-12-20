@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LadiesGentlemen.Data;
 using LadiesGentlmen.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace LadiesGentlemen.Controllers
 {
@@ -54,10 +55,15 @@ namespace LadiesGentlemen.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Password,PhoneNumber,Email,DateOfBirth")] Client client)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Password,PhoneNumber,Email,DateOfBirth")] Client client, IFormCollection collection)
         {
             if (ModelState.IsValid)
             {
+                Address address = new Address();
+                address.City = collection["Address.City"];
+
+                client.Address = address;
+
                 _context.Add(client);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

@@ -20,8 +20,7 @@ namespace LadiesGentlmen.Models
         [Required(ErrorMessage = "You must enter a description")]
         [StringLength(999, ErrorMessage = "Hey, you can't enter more than 999 letters!")]
         public string Description { get; set; }
-        public Color Color { get; set; }
-        public Size Size { get; set; }
+        
 
     }
 }

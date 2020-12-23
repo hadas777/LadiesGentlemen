@@ -27,6 +27,22 @@ namespace LadiesGentlemen.Controllers
         {
             return View();
         }
+        public IActionResult about()
+        {
+            return View();
+        }
+        public IActionResult contcs()
+        {
+            return View();
+        }
+        public IActionResult LogIn()
+        {
+            return View();
+        }
+        public IActionResult sending()
+        {
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

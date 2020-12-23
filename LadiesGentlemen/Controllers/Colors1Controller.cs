@@ -7,26 +7,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LadiesGentlemen.Data;
 using LadiesGentlmen.Models;
-using Microsoft.AspNetCore.Http;
 
 namespace LadiesGentlemen.Controllers
 {
-    public class ClientsController : Controller
+    public class Colors1Controller : Controller
     {
         private readonly LadiesGentlemenContext _context;
 
-        public ClientsController(LadiesGentlemenContext context)
+        public Colors1Controller(LadiesGentlemenContext context)
         {
             _context = context;
         }
 
-        // GET: Clients
+        // GET: Colors1
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Client.ToListAsync());
+            return View(await _context.Color.ToListAsync());
         }
 
-        // GET: Clients/Details/5
+        // GET: Colors1/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,44 +33,39 @@ namespace LadiesGentlemen.Controllers
                 return NotFound();
             }
 
-            var client = await _context.Client
+            var color = await _context.Color
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (client == null)
+            if (color == null)
             {
                 return NotFound();
             }
 
-            return View(client);
+            return View(color);
         }
 
-        // GET: Clients/Create
+        // GET: Colors1/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Clients/Create
+        // POST: Colors1/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Password,PhoneNumber,Email,DateOfBirth")] Client client, IFormCollection collection)
+        public async Task<IActionResult> Create([Bind("Id,Name")] Color color)
         {
             if (ModelState.IsValid)
             {
-                Address address = new Address();
-                address.City = collection["Address.City"];
-
-                client.Address = address;
-
-                _context.Add(client);
+                _context.Add(color);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(client);
+            return View(color);
         }
 
-        // GET: Clients/Edit/5
+        // GET: Colors1/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -79,22 +73,22 @@ namespace LadiesGentlemen.Controllers
                 return NotFound();
             }
 
-            var client = await _context.Client.FindAsync(id);
-            if (client == null)
+            var color = await _context.Color.FindAsync(id);
+            if (color == null)
             {
                 return NotFound();
             }
-            return View(client);
+            return View(color);
         }
 
-        // POST: Clients/Edit/5
+        // POST: Colors1/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Password,PhoneNumber,Email,DateOfBirth")] Client client)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Color color)
         {
-            if (id != client.Id)
+            if (id != color.Id)
             {
                 return NotFound();
             }
@@ -103,12 +97,12 @@ namespace LadiesGentlemen.Controllers
             {
                 try
                 {
-                    _context.Update(client);
+                    _context.Update(color);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ClientExists(client.Id))
+                    if (!ColorExists(color.Id))
                     {
                         return NotFound();
                     }
@@ -119,10 +113,10 @@ namespace LadiesGentlemen.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(client);
+            return View(color);
         }
 
-        // GET: Clients/Delete/5
+        // GET: Colors1/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -130,30 +124,30 @@ namespace LadiesGentlemen.Controllers
                 return NotFound();
             }
 
-            var client = await _context.Client
+            var color = await _context.Color
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (client == null)
+            if (color == null)
             {
                 return NotFound();
             }
 
-            return View(client);
+            return View(color);
         }
 
-        // POST: Clients/Delete/5
+        // POST: Colors1/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var client = await _context.Client.FindAsync(id);
-            _context.Client.Remove(client);
+            var color = await _context.Color.FindAsync(id);
+            _context.Color.Remove(color);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ClientExists(int id)
+        private bool ColorExists(int id)
         {
-            return _context.Client.Any(e => e.Id == id);
+            return _context.Color.Any(e => e.Id == id);
         }
     }
 }

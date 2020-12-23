@@ -14,7 +14,7 @@ namespace LadiesGentlmen.Models
         [Required(ErrorMessage = "You must enter quantity")]
         [Range(0, 10, ErrorMessage = "Hey, you can order up to 10 items!")]
         public int Quantity { get; set; }
-        public Stock Item { get; set; }
+        public ICollection<Stock> Orders { get; set; }
 
     }
 }

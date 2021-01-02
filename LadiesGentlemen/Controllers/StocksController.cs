@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LadiesGentlemen.Data;
 using LadiesGentlmen.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace LadiesGentlemen.Controllers
 {
@@ -54,10 +55,31 @@ namespace LadiesGentlemen.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,QuantityInStock,ProdactId")] Stock stock)
+        public async Task<IActionResult> Create([Bind("Id,QuantityInStock,ProdactId")] Stock stock, IFormCollection collection)
         {
             if (ModelState.IsValid)
             {
+                Color c = new Color();
+                c.Name= collection["Color.Name"];
+                stock.Color = c;
+
+                Size s = new Size();
+                s.Name = collection["Size.Name"];
+                stock.Size = s;
+
+                Product p = new Product();
+                stock.Product = p;
+
+                SubCategory sub = new SubCategory();
+                sub.Name = collection["SubCategory.Name"];
+                stock.Product.SubCategory = sub;
+
+                p.Image = collection["Product.Image"];
+                stock.Product.Image = p.Image;
+
+                p.Description = collection["Product.Description"];
+                stock.Product.Description = p.Description;
+
                 _context.Add(stock);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
